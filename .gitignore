@@ -1,0 +1,12 @@
+/Dotfiles.yaml
+/Dotfiles.json
+/after.sh
+/.bash_profile
+/.bashrc
+/.gitconfig
+/.npmrc
+/.yarnrc
+/aliases
+/aliases.ps1
+/functions
+/functions.ps1
