@@ -153,7 +153,7 @@ printf "curl.cainfo = /etc/ssl/certs/ca-certificates.crt\n" | tee -a /etc/php/5.
 # Disable XDebug On The CLI
 sudo phpdismod -s cli xdebug
 
-# Set The Nginx & PHP-FPM User
+# Set The PHP-FPM User
 sed -i "s/user = www-data/user = vagrant/" /etc/php/7.2/fpm/pool.d/www.conf
 sed -i "s/group = www-data/group = vagrant/" /etc/php/7.2/fpm/pool.d/www.conf
 
