@@ -34,3 +34,4 @@ If (!(Test-Path "C:\inetpub\temp\apppools")) {
 
 # Restart Services
 Invoke-Expression -Command "IISRESET"
+Get-Service W3SVC | Start-Service
