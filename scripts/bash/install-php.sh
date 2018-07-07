@@ -71,7 +71,7 @@ sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/5.6/cli/php.in
 sudo sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/5.6/cli/php.ini
 sudo sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/5.6/cli/php.ini
 
-# Install Nginx & PHP-FPM
+# Install PHP-FPM
 apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages \
 php7.1-fpm php7.2-fpm php7.0-fpm php5.6-fpm
 
