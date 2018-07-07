@@ -63,24 +63,27 @@ If ((Get-WindowsOptionalFeature -Online -FeatureName IIS-CGI).State -ne "Disable
     New-Item -Path $PathWWWRoot -Name "php72" -ItemType "directory"
 	New-Item -Path ($PathWWWRoot + "\php72") -Name "index.php" -ItemType "file" -Value $Script
     New-WebApplication -Name PHP72 -Site 'Default Web Site' -PhysicalPath ($PathWWWRoot + "\php72") -ApplicationPool DefaultAppPool
-
+    Get-WebHandler -PSPath 'IIS:\Sites\Default Web Site\PHP72' | Where-Object -FilterScript {($_.Path -eq "*.php") -and ($_.Name -ne "PHP72_via_FastCGI")} | ForEach-Object { Remove-WebHandler -Name $_.Name -PSPath 'IIS:\Sites\Default Web Site\PHP72' }
 
     # PHP 7.1
     New-Item -Path $PathWWWRoot -Name "php71" -ItemType "directory"
 	New-Item -Path ($PathWWWRoot + "\php71") -Name "index.php" -ItemType "file" -Value $Script
-    New-WebApplication -Name PHP71 -Site 'Default Web Site' -PhysicalPath ($PathWWWRoot + "\php71") -ApplicationPool DefaultAppPool
+	New-WebApplication -Name PHP71 -Site 'Default Web Site' -PhysicalPath ($PathWWWRoot + "\php71") -ApplicationPool DefaultAppPool
+    Get-WebHandler -PSPath 'IIS:\Sites\Default Web Site\PHP71' | Where-Object -FilterScript {($_.Path -eq "*.php") -and ($_.Name -ne "PHP71_via_FastCGI")} | ForEach-Object { Remove-WebHandler -Name $_.Name -PSPath 'IIS:\Sites\Default Web Site\PHP71' }
 
 	# PHP 7.0
     New-Item -Path $PathWWWRoot -Name "php70" -ItemType "directory"
 	New-Item -Path ($PathWWWRoot + "\php70") -Name "index.php" -ItemType "file" -Value $Script
-    New-WebApplication -Name PHP70 -Site 'Default Web Site' -PhysicalPath ($PathWWWRoot + "\php70") -ApplicationPool DefaultAppPool
+	New-WebApplication -Name PHP70 -Site 'Default Web Site' -PhysicalPath ($PathWWWRoot + "\php70") -ApplicationPool DefaultAppPool
+    Get-WebHandler -PSPath 'IIS:\Sites\Default Web Site\PHP70' | Where-Object -FilterScript {($_.Path -eq "*.php") -and ($_.Name -ne "PHP70_via_FastCGI")} | ForEach-Object { Remove-WebHandler -Name $_.Name -PSPath 'IIS:\Sites\Default Web Site\PHP70' }
 
     # PHP 5.6
     New-Item -Path $PathWWWRoot -Name "php56" -ItemType "directory"
 	New-Item -Path ($PathWWWRoot + "\php56") -Name "index.php" -ItemType "file" -Value $Script
-    New-WebApplication -Name PHP56 -Site 'Default Web Site' -PhysicalPath ($PathWWWRoot + "\php56") -ApplicationPool DefaultAppPool
+	New-WebApplication -Name PHP56 -Site 'Default Web Site' -PhysicalPath ($PathWWWRoot + "\php56") -ApplicationPool DefaultAppPool
+    Get-WebHandler -PSPath 'IIS:\Sites\Default Web Site\PHP56' | Where-Object -FilterScript {($_.Path -eq "*.php") -and ($_.Name -ne "PHP56_via_FastCGI")} | ForEach-Object { Remove-WebHandler -Name $_.Name -PSPath 'IIS:\Sites\Default Web Site\PHP56' }
 
     # Restart Services
 	Invoke-Expression -Command "IISRESET"
-    Get-Service W3SVC | Start-Service
+	Get-Service W3SVC | Start-Service
 }

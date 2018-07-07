@@ -32,6 +32,11 @@ If (!(Test-Path "C:\inetpub\temp\apppools")) {
     New-Item -Path "C:\inetpub\temp\apppools" -type directory -Force -ErrorAction SilentlyContinue
 }
 
+# Sets the Handler Mapping feature delegation to Read/Write
+Set-WebConfiguration //System.webServer/handlers -Metadata overrideMode -Value Allow -PSPath IIS:/ -Verbose
+# Sets the Handler Mapping feature delegation to Read Only. (Left commented out by default)
+# Set-WebConfiguration //System.webServer/handlers -metadata overrideMode -value Deny -PSPath IIS:/ -verbose
+
 # Restart Services
 Invoke-Expression -Command "IISRESET"
 Get-Service W3SVC | Start-Service
