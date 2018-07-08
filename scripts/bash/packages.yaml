@@ -1,0 +1,23 @@
+full:
+    - php
+    - composer
+    - nginx
+    - node
+    - sqlite
+    - mysql
+    - postgresql
+    - blackfire
+    - zend-zray
+    - chromium-browser
+    - redis-server
+    - memcached
+    - beanstalkd
+    - mailhog
+    - crystal
+    - heroku-cli
+    - ngrok
+    - flyway
+    - wp-cli
+    - oh-my-zsh
+    - golang
+    - postfix

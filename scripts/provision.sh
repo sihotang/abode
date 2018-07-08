@@ -27,3 +27,9 @@ pv cifs-utils mcrypt bash-completion zsh
 
 # Set My Timezone
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+
+# Upgrade check
+apt-get -y upgrade
+
+# Enable Swap Memory
+sudo bash /scripts/bash/enable-swap-memory.sh
