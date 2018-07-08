@@ -1,0 +1,25 @@
+{
+  "name": "dotfiles",
+  "version": "0.0.1",
+  "description": "The settler & configuration manager.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sihotang/dotfiles.git"
+  },
+  "author": "Sopar Sihotang <soparsihotang@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sihotang/dotfiles/issues"
+  },
+  "homepage": "https://github.com/sihotang/dotfiles#readme",
+  "devDependencies": {
+    "pkg": "^4.3.3"
+  },
+  "dependencies": {
+    "yargs": "^12.0.1"
+  }
+}

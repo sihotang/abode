@@ -1,1 +1,9 @@
-#!/usr/bin/env powershell
+#!/usr/bin/env node
+
+const argv = require('yargs').argv;
+
+if (argv.digit) {
+    console.log(argv.digit + 1);
+} else {
+    console.log('Hmm. I\'m confused');
+}
