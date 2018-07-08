@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Start the ssh-agent
+function start-agent {
+    echo "Initializing new SSH agent..."
+    # spawn ssh-agent
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add
+}
+
+# Set PHP-CLI version
+function set-php() {
+    if [[ "$1"]]
+    then
+        sudo bash /scripts/bash/set-php.sh "$1"
+    else
+        echo "Error: missing required parameters."
+        echo "Usage: "
+        echo "  set-php version"
+    fi
+}

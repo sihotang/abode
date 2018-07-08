@@ -1,0 +1,6 @@
+[user]
+	name = @author
+	email = @authoremail
+[core]
+	autocrlf = true
+	excludesfile = C:/Users/sopar/.gitignore_global
