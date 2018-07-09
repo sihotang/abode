@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * This content is released under The MIT License (MIT)
  *
@@ -28,26 +27,45 @@
  * @license       https://opensource.org/licenses/MIT
  */
 
-const { join, resolve } = require('path');
-const yargs = require('yargs');
-const {
-    homepage,
-    version
-} = require(join(__dirname, '../package.json'));
-const { commands } = require('../index.js');
-const cwd = resolve(yargs.argv.cwd || process.cwd());
+require('chai').should()
 
-process.chdir(cwd);
-
-// Init CLI commands and options
-commands.forEach(cmd => yargs.command(cmd.command, cmd.desc, cmd.builder, cmd.handler))
-yargs
-    .help()
-    .options({
-        cwd: {
-            desc: 'Change the current working directory'
+describe('modules/log.js', function () {
+    describe('.debug', function () {
+        // Mocks
+        let _latestConsolePrint
+        const colors = {
+            yellow: (m) => m,
+            blue: (m) => m,
+            gray: (m) => m
         }
+        const console = {
+            log: function () {
+                _latestConsolePrint = arguments
+            }
+        }
+
+        // Target
+        const _module = require('../../../lib/modules/log')
+        let _target
+
+        before(function () {
+            _latestConsolePrint = null
+            _target = _module({
+                colors,
+                console
+            })
+        })
+        it('should print without title and description', function () {
+            _target.debug('')
+            _latestConsolePrint[0].should.equal('[MyCli]')
+        })
+        it('should print title', function () {
+            _target.debug('Title')
+            _latestConsolePrint[0].should.equal('[MyCli] Title')
+        })
+        it('should print title and description', function () {
+            _target.debug('Title', 'Description')
+            _latestConsolePrint[0].should.equal('[MyCli] Title Description')
+        })
     })
-    .demand(1)
-    .epilog((homepage ? `| Documentation: ${homepage}\n` : '') + (version ? `| Version: ${version}` : ''))
-    .argv
+});

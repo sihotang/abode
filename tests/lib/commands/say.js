@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * This content is released under The MIT License (MIT)
  *
@@ -28,26 +27,42 @@
  * @license       https://opensource.org/licenses/MIT
  */
 
-const { join, resolve } = require('path');
-const yargs = require('yargs');
-const {
-    homepage,
-    version
-} = require(join(__dirname, '../package.json'));
-const { commands } = require('../index.js');
-const cwd = resolve(yargs.argv.cwd || process.cwd());
+require('chai').should()
 
-process.chdir(cwd);
-
-// Init CLI commands and options
-commands.forEach(cmd => yargs.command(cmd.command, cmd.desc, cmd.builder, cmd.handler))
-yargs
-    .help()
-    .options({
-        cwd: {
-            desc: 'Change the current working directory'
+describe('command/say.js', function () {
+    describe('.handler', function () {
+        // Mocks
+        let _latestLogMessage
+        const log = {
+            debug: function (msg) {
+                _latestLogMessage = msg
+            }
         }
+
+        // Target
+        const _module = require('../../../lib/commands/say')
+        let _target
+
+        before(function () {
+            _latestLogMessage = null
+            _target = _module({
+                log
+            })
+        })
+        it('should print prefix and name', function () {
+            _target.handler({
+                prefix: 'Hello',
+                name: 'CLI'
+            })
+            _latestLogMessage.should.equal('Hello CLI')
+        })
+        it('should print prefix, name and surname', function () {
+            _target.handler({
+                prefix: 'Hello',
+                name: 'CLI',
+                surname: 'ILC'
+            })
+            _latestLogMessage.should.equal('Hello CLI ILC')
+        })
     })
-    .demand(1)
-    .epilog((homepage ? `| Documentation: ${homepage}\n` : '') + (version ? `| Version: ${version}` : ''))
-    .argv
+});
