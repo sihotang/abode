@@ -15,7 +15,7 @@
     "standard": "standard",
     "pretest": "standard --fix",
     "test": "nyc --cache mocha --timeout=8000 --check-leaks tests/**/*.js"
-   },
+  },
   "keywords": [
     "abode",
     "cli"
