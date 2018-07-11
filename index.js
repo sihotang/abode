@@ -27,10 +27,14 @@
  * @license       https://opensource.org/licenses/MIT
  */
 
+const { basename, join, resolve } = require('path')
 const {
-    join,
-    resolve
-} = require('path')
+  createReadStream,
+  readdir,
+  readdirSync,
+  writeFileSync
+} = require('fs');
+const Mustache = require('mustache')
 const camelCase = require('camelcase')
 const requireDir = require('require-dir')
 const colors = require('chalk')
@@ -38,12 +42,18 @@ const shell = require('shelljs')
 
 // External dependencies to pass to the commands
 let dep = {
-    join,
-    resolve,
-    console,
-    colors,
-    shell,
-    process
+  basename,
+  join,
+  resolve,
+  createReadStream,
+  readdir,
+  readdirSync,
+  writeFileSync,
+  console,
+  colors,
+  shell,
+  process,
+  Mustache
 }
 
 // Internal dependencies
