@@ -1,9 +1,10 @@
 {
-  "name": "@sihotang/abode",
+  "name": "@sihotang/bait",
   "version": "0.0.1",
   "description": "The settler & configuration for development environments.",
+  "main": "lib/bait.js",
   "bin": {
-    "abode": "bin/abode"
+    "bait": "bin/bait"
   },
   "files": [
     "bin",
@@ -17,12 +18,12 @@
     "test": "nyc --cache mocha --timeout=8000 --check-leaks tests/**/*.js"
   },
   "keywords": [
-    "abode",
+    "bait",
     "cli"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sihotang/dotfiles.git"
+    "url": "git+https://github.com/sihotang/bait.git"
   },
   "author": "Sopar Sihotang <soparsihotang@gmail.com>",
   "license": "MIT",

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * This content is released under The MIT License (MIT)
  *
@@ -27,47 +29,31 @@
  * @license       https://opensource.org/licenses/MIT
  */
 
-const { basename, join, resolve } = require('path')
 const {
-  createReadStream,
-  readdir,
-  readdirSync,
-  writeFileSync
-} = require('fs');
-const Mustache = require('mustache')
-const camelCase = require('camelcase')
-const requireDir = require('require-dir')
-const colors = require('chalk')
-const shell = require('shelljs')
-
-// External dependencies to pass to the commands
-let dep = {
-  basename,
   join,
-  resolve,
-  createReadStream,
-  readdir,
-  readdirSync,
-  writeFileSync,
-  console,
-  colors,
-  shell,
-  process,
-  Mustache
-}
+  resolve
+} = require('path');
+const yargs = require('yargs');
+const {
+  homepage,
+  version
+} = require(join(__dirname, '../package.json'));
+const {
+  commands
+} = require('../lib/bait.js');
+const cwd = resolve(yargs.argv.cwd || process.cwd());
 
-// Internal dependencies
-const inDepFns = requireDir(join(__dirname, 'lib', 'modules'))
-Object.keys(inDepFns).forEach(name => {
-    dep[camelCase(name)] = inDepFns[name](dep)
-})
+process.chdir(cwd);
 
-// Load commands from folder and pass dependencies
-const commandsFn = requireDir(join(__dirname, 'lib', 'commands'))
-const commands = Object.keys(commandsFn).map((i) => commandsFn[i](dep))
-
-// Export commands and modules separatelly
-module.exports = {
-    commands,
-    modules: dep
-}
+// Init CLI commands and options
+commands.forEach(cmd => yargs.command(cmd.command, cmd.desc, cmd.builder, cmd.handler))
+yargs
+  .help()
+  .options({
+    cwd: {
+      desc: 'Change the current working directory'
+    }
+  })
+  .demand(1)
+  .epilog((homepage ? `| Documentation: ${homepage}\n` : '') + (version ? `| Version: ${version}` : ''))
+  .argv
