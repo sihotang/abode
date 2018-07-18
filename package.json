@@ -1,6 +1,7 @@
 {
   "name": "@sihotang/bait",
   "version": "0.0.1",
+  "private": true,
   "description": "The settler & configuration for development environments.",
   "main": "lib/bait.js",
   "bin": {
@@ -11,6 +12,9 @@
     "lib",
     "resources",
     "scripts"
+  ],
+  "workspaces": [
+    "src/Bait/*"
   ],
   "scripts": {
     "standard": "standard",
@@ -31,17 +35,23 @@
     "url": "https://github.com/sihotang/dotfiles/issues"
   },
   "homepage": "https://github.com/sihotang/dotfiles#readme",
-  "devDependencies": {
-    "mocha": "^5.2.0",
-    "nyc": "^12.0.2",
-    "pkg": "^4.3.3"
-  },
   "dependencies": {
+    "@types/mustache": "^0.8.31",
+    "@types/shelljs": "^0.8.0",
+    "@types/yargs": "^11.1.0",
     "camelcase": "^5.0.0",
     "chalk": "^2.4.1",
     "mustache": "^2.3.0",
     "require-dir": "^1.0.0",
     "shelljs": "^0.8.2",
     "yargs": "^12.0.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.4",
+    "@types/node": "^10.5.2",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "pkg": "^4.3.3",
+    "typescript": "^2.9.2"
   }
 }
