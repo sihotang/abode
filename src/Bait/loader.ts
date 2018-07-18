@@ -27,33 +27,24 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-import { join } from 'path';
-import * as Shell from 'shelljs';
-import { Argv, ICommandProps } from '../core/Command.Props';
+import { ICommandProps } from './core/Command.Props';
 
-interface IInitArgs extends Argv {
-  readonly conf?: string
+interface ICommands {
+  [command: string]: ICommandProps
 }
 
-const command: ICommandProps = {
-  command:'init <name>',
-  description: 'Initialize a new Bait environment by creating a Baitfile',
-  args: [
-    {
-      name: 'name',
-      required: true,
-      description: 'The name of directory for saving dotfiles',
-      type: 'string',
-    },
-  ],
-  options: {},
-  handler({ name }: IInitArgs) {
-    const resourcepath = join(__dirname, '../../../resources/*');
-    const destpath = join(process.cwd(), (name));
+export const commands: ICommands = {}
 
-    Shell.mkdir('-p', destpath);
-    Shell.cp('-f', resourcepath, destpath);
-  },
+export default function loader() {
+  for (const fileName of __CLI_COMMANDS__) {
+    const mod = _load(fileName)
+    if (!mod.name) {
+      mod.name = fileName
+    }
+    commands[mod.name] = mod
+  }
 }
 
-export default command;
+function _load(name: string): ICommandProps {
+  return require(`./commands/${name}.ts`)
+}

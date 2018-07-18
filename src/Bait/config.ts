@@ -28,32 +28,7 @@
  */
 
 import { join } from 'path';
-import * as Shell from 'shelljs';
-import { Argv, ICommandProps } from '../core/Command.Props';
 
-interface IInitArgs extends Argv {
-  readonly conf?: string
-}
+const g: any = global
 
-const command: ICommandProps = {
-  command:'init <name>',
-  description: 'Initialize a new Bait environment by creating a Baitfile',
-  args: [
-    {
-      name: 'name',
-      required: true,
-      description: 'The name of directory for saving dotfiles',
-      type: 'string',
-    },
-  ],
-  options: {},
-  handler({ name }: IInitArgs) {
-    const resourcepath = join(__dirname, '../../../resources/*');
-    const destpath = join(process.cwd(), (name));
-
-    Shell.mkdir('-p', destpath);
-    Shell.cp('-f', resourcepath, destpath);
-  },
-}
-
-export default command;
+g.__CLI_COMMANDS__ = join(__dirname, 'commands')

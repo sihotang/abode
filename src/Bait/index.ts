@@ -27,3 +27,12 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
+import { join } from 'path';
+import requireDir from 'require-dir';
+
+const commandsFn = requireDir(join(__dirname, "bait"));
+const commands = Object.keys(commandsFn).map((i) => commandsFn[i](dep));
+
+module.exports = {
+    commands
+}

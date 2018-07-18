@@ -26,34 +26,43 @@
  * @copyright     2018 Sopar Sihotang
  * @license       http://www.opensource.org/licenses/MIT
  */
+import { Argv } from 'mri';
 
-import { join } from 'path';
-import * as Shell from 'shelljs';
-import { Argv, ICommandProps } from '../core/Command.Props';
 
-interface IInitArgs extends Argv {
-  readonly conf?: string
+type StringArray = ReadonlyArray<string>
+
+export type TypeName =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'symbol'
+  | 'undefined'
+  | 'object'
+  | 'function'
+export type CommandHandler = (args: Argv, argv: StringArray) => void
+export { Argv };
+
+export interface IOption {
+  readonly type: TypeName
+  readonly aliases?: StringArray
+  readonly description: string
+  readonly default?: any
 }
 
-const command: ICommandProps = {
-  command:'init <name>',
-  description: 'Initialize a new Bait environment by creating a Baitfile',
-  args: [
-    {
-      name: 'name',
-      required: true,
-      description: 'The name of directory for saving dotfiles',
-      type: 'string',
-    },
-  ],
-  options: {},
-  handler({ name }: IInitArgs) {
-    const resourcepath = join(__dirname, '../../../resources/*');
-    const destpath = join(process.cwd(), (name));
-
-    Shell.mkdir('-p', destpath);
-    Shell.cp('-f', resourcepath, destpath);
-  },
+interface IArgument {
+  readonly name: string
+  readonly required: boolean
+  readonly description: string
+  readonly type: TypeName
 }
 
-export default command;
+export interface ICommandProps {
+  name?: string
+  readonly command: string
+  readonly description: string
+  readonly handler: CommandHandler
+  readonly aliases?: StringArray
+  readonly options?: { [flag: string]: IOption }
+  readonly args?: ReadonlyArray<IArgument>
+  readonly unknownOptionHandler?: (flag: string) => void
+}
