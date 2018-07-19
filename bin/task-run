@@ -1,4 +1,4 @@
-/**
+/*
  * This content is released under The MIT License
  *
  * Copyright (c) 2018 Sopar Sihotang
@@ -26,42 +26,3 @@
  * @copyright     2018 Sopar Sihotang
  * @license       http://www.opensource.org/licenses/MIT
  */
-import { Argv } from 'mri';
-
-type StringArray = ReadonlyArray<string>
-
-export type TypeName =
-  | 'string'
-  | 'number'
-  | 'boolean'
-  | 'symbol'
-  | 'undefined'
-  | 'object'
-  | 'function'
-export type CommandHandler = (args: Argv, argv: StringArray) => void
-export { Argv };
-
-export interface IOption {
-  readonly type: TypeName
-  readonly aliases?: StringArray
-  readonly description: string
-  readonly default?: any
-}
-
-interface IArgument {
-  readonly name: string
-  readonly required: boolean
-  readonly description: string
-  readonly type: TypeName
-}
-
-export interface ICommandProps {
-  name?: string
-  readonly command: string
-  readonly description: string
-  readonly handler: CommandHandler
-  readonly aliases?: StringArray
-  readonly options?: { [flag: string]: IOption }
-  readonly args?: ReadonlyArray<IArgument>
-  readonly unknownOptionHandler?: (flag: string) => void
-}
