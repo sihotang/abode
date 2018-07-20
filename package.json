@@ -28,6 +28,11 @@
     "scripts:lint": "eslint --ext js common/task",
     "scripts:prebuild": "npm run scripts:clean",
     "scripts:pretest": "npm run scripts:lint",
+    "bin:build": "npm run bin:lint && babel common/bin -Dd bin",
+    "bin:clean": "rimraf bin",
+    "bin:lint": "eslint common/bin/**",
+    "bin:prebuild": "npm run bin:clean",
+    "bin:pretest": "npm run bin:lint",
     "test": "nyc --cache mocha --timeout=8000 --check-leaks tests/**/*.js"
   },
   "keywords": [
