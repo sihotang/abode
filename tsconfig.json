@@ -10,10 +10,12 @@
     ]
   },
   "exclude": [
+    "./bin",
     "./common",
+    "./lib",
     "./node_modules",
     "./plugins",
-    "./resources",
-    "./lib"
+    "./scripts",
+    "./resources"
   ]
 }
