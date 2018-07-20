@@ -41,7 +41,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 module.exports = (options = {}) => {
   const mstslint = require.resolve('tslint-microsoft-contrib');
 
-  const cli = _path.default.resolve(__dirname, '../../node_modules/tslint/lib/tslint-cli');
+  const cli = _path.default.resolve(process.cwd(), 'node_modules/tslint/lib/tslint-cli');
 
   const command = "node ".concat(cli);
 

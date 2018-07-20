@@ -29,11 +29,11 @@
  * @license       https://opensource.org/licenses/MIT
  */
 
-import { join, resolve } from 'path';
+import { resolve } from 'path';
 import yargs from 'yargs';
 
-const { commands } = require(join(process.cwd(), 'lib/bait'));
-const { homepage, version } = require(join(process.cwd(), 'package.json'));
+const { commands } = require(resolve(process.cwd(), 'lib/bait'));
+const { homepage, version } = require(resolve(process.cwd(), 'package.json'));
 const cwd = resolve(yargs.argv.cwd || process.cwd());
 
 process.chdir(cwd);
@@ -51,3 +51,4 @@ yargs
   .demand(1)
   .epilog((homepage ? `| Documentation: ${homepage}\n` : '') + (version ? `| Version: ${version}` : ''))
   .argv;
+/* eslint-enable no-unused-expressions */

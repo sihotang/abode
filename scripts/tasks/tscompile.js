@@ -39,7 +39,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @license       http://www.opensource.org/licenses/MIT
  */
 module.exports = (options = {}) => {
-  const cli = _path.default.resolve(__dirname, '../../node_modules/typescript/lib/tsc');
+  const cli = _path.default.resolve(process.cwd(), 'node_modules/typescript/lib/tsc');
 
   const command = "node ".concat(cli, " --pretty");
 

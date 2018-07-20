@@ -6,7 +6,7 @@ var _commander = _interopRequireDefault(require("commander"));
 
 var _gulp = _interopRequireDefault(require("gulp"));
 
-var _utils = require("../utils");
+var _utils = require("./utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51,7 +51,7 @@ const task = _commander.default.args[0];
 if (!task) {
   _commander.default.help();
 } else {
-  _utils.Logger.stats('playst-tools run', task);
+  _utils.Logger.stats('task run', task);
 
   require('./gulpfile');
 

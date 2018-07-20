@@ -27,21 +27,37 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-import { existsSync, readFileSync } from 'fs';
-import path from 'path';
+import chalk from 'chalk';
+import { isProduction, isVerbose } from './environment';
+import Timer from './Timer';
 
-/**
- * ENVIRONMENTS
- */
-export const isProduction = process.argv.indexOf('--production') > -1;
-export const isVerbose = process.argv.indexOf('--verbose') > -1;
-
-function packaged() {
-  const filepath = path.resolve(process.cwd(), 'package.json');
-
-  if (existsSync(filepath)) {
-    return JSON.parse(readFileSync(filepath, 'utf8'));
+/* eslint-disable no-console */
+class Logger {
+  static stats(args) {
+    if (isProduction || isVerbose) {
+      console.log(chalk.gray(args));
+    }
   }
 
-  return undefined;
+  static startTask(name, task) {
+    console.log(`${Timer.prefixTime(name)} Starting: ${chalk.cyan(task)}`);
+  }
+
+  static endTask(name, task, startTime, errorMessage) {
+    console.log(`${Timer.prefixTime(name)}\
+    ${Timer.passFail(errorMessage === undefined)}: ${chalk.cyan(task)} (${Timer.duration(startTime)}) ${errorMessage ? (chalk.white(':') + chalk.red(errorMessage)) : ''}`);
+  }
+
+  static endBuild(name, passed, startTime) {
+    console.log();
+    console.log(`${
+      chalk.grey('============') + chalk.white('[ ') + chalk.cyan(name) + chalk.white(' ]')
+      + chalk.grey('=') + chalk.white('[ ') + Timer.passFail(passed) + chalk.white(' ]')
+      + chalk.grey('=') + chalk.white('[ ') + Timer.duration(startTime) + chalk.white(' ]')
+      + chalk.grey('============')
+    }`);
+  }
 }
+/* eslint-enable no-console */
+
+export default Logger;

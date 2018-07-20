@@ -1,3 +1,14 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _chalk = _interopRequireDefault(require("chalk"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * This content is released under The MIT License
  *
@@ -26,9 +37,31 @@
  * @copyright     2018 Sopar Sihotang
  * @license       http://www.opensource.org/licenses/MIT
  */
+class Timer {
+  static duration(start) {
+    const duration = new Date().getTime() - start;
+    return _chalk.default.yellow(this.formatTime(duration));
+  }
 
-import { isProduction, isVerbose, packaged } from './environment';
-import Logger from './Logger';
-import Timer from './Timer';
+  static passFail(passed) {
+    return passed ? _chalk.default.green('Pass') : _chalk.default.red('Error');
+  }
 
-export { Logger, Timer, isProduction, isVerbose, packaged, };
+  static prefixTime(prefix) {
+    return "[".concat(_chalk.default.magenta(prefix), "       ").concat(_chalk.default.gray(new Date().toLocaleTimeString({
+      hour12: false
+    })), "]");
+  }
+
+  static formatTime(milliseconds) {
+    if (milliseconds >= 1000) {
+      return "".concat(milliseconds / 1000, "s");
+    }
+
+    return "".concat(milliseconds, "ms");
+  }
+
+}
+
+var _default = Timer;
+exports.default = _default;

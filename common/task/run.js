@@ -30,7 +30,7 @@
 import { colorful } from 'colorful';
 import commander from 'commander';
 import gulp from 'gulp';
-import { Logger } from '../utils';
+import { Logger } from './utils';
 
 colorful();
 
@@ -45,7 +45,7 @@ const task = commander.args[0];
 if (!task) {
   commander.help();
 } else {
-  Logger.stats('playst-tools run', task);
+  Logger.stats('task run', task);
 
   require('./gulpfile');
 

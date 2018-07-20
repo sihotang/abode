@@ -19,7 +19,7 @@ const SEPARATOR = process.platform === 'win32' ? ';' : ':';
 
 const envModules = _objectSpread({}, process.env);
 
-envModules.PATH = _path.default.resolve('../../node_modules/.bin') + SEPARATOR + envModules.PATH;
+envModules.PATH = _path.default.resolve(process.cwd(), 'node_modules/.bin') + SEPARATOR + envModules.PATH;
 
 const exec = function () {
   function exec(command, name, cwd = process.cwd()) {

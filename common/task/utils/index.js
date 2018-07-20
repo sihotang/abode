@@ -27,44 +27,14 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-import { existsSync } from 'fs';
-import { trimEnd } from 'lodash';
-import path from 'path';
-import { execSync } from '../sync';
+import { isProduction, isVerbose, packaged } from './environment';
+import Logger from './Logger';
+import Timer from './Timer';
 
-module.exports = (options = {}) => {
-  const cli = path.resolve(process.cwd(), 'node_modules/typescript/lib/tsc');
-  const command = `node ${cli} --pretty`;
-  const libPath = path.resolve(process.cwd(), 'lib');
-  const srcPath = path.resolve(process.cwd(), 'src');
-
-  let args = options.isProduction ? ` --inlineSources --sourceRoot ${path.relative(libPath, srcPath)}` : '';
-
-  const run = function run(workspace = '', cwd = process.cwd()) {
-    const project = path.resolve(cwd, `${workspace}/tsconfig.json`);
-
-    args = existsSync(project) ? `${args} -p ${path.dirname(project)}` : args;
-
-    execSync(`${command} -outDir lib -t es5 -m commonjs ${args}`);
-
-    if (options.isProduction) {
-      execSync(`${command} -outDir lib-amd -t es5 -m amd ${args}`);
-      execSync(`${command} -outDir lib-es2015 -t es5 -m es2015 ${args}`);
-    }
-  };
-
-  let workspaces = [];
-  let promise = Promise.resolve();
-
-  const {
-    workspaces: pkgWorkspaces,
-  } = options;
-
-  workspaces = pkgWorkspaces;
-
-  workspaces.forEach((workspace) => {
-    promise = promise.then(() => run(trimEnd(workspace, '/*')));
-  });
-
-  return undefined;
+export {
+  Logger,
+  Timer,
+  isProduction,
+  isVerbose,
+  packaged,
 };

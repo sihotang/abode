@@ -1,3 +1,18 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _chalk = _interopRequireDefault(require("chalk"));
+
+var _environment = require("./environment");
+
+var _Timer = _interopRequireDefault(require("./Timer"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * This content is released under The MIT License
  *
@@ -27,35 +42,30 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-import chalk from 'chalk';
-import { isProduction, isVerbose } from './environment';
-import Timer from './Timer';
-
+/* eslint-disable no-console */
 class Logger {
   static stats(args) {
-    if (isProduction || isVerbose) {
-      console.log(chalk.gray(args));
+    if (_environment.isProduction || _environment.isVerbose) {
+      console.log(_chalk.default.gray(args));
     }
   }
 
   static startTask(name, task) {
-    console.log(`${Timer.prefixTime(name)} Starting: ${chalk.cyan(task)}`);
+    console.log("".concat(_Timer.default.prefixTime(name), " Starting: ").concat(_chalk.default.cyan(task)));
   }
 
   static endTask(name, task, startTime, errorMessage) {
-    console.log(`${Timer.prefixTime(name)}\
-    ${Timer.passFail(errorMessage === undefined)}: ${chalk.cyan(task)} (${Timer.duration(startTime)}) ${errorMessage ? (chalk.white(':') + chalk.red(errorMessage)) : ''}`);
+    console.log("".concat(_Timer.default.prefixTime(name), "    ").concat(_Timer.default.passFail(errorMessage === undefined), ": ").concat(_chalk.default.cyan(task), " (").concat(_Timer.default.duration(startTime), ") ").concat(errorMessage ? _chalk.default.white(':') + _chalk.default.red(errorMessage) : ''));
   }
 
   static endBuild(name, passed, startTime) {
     console.log();
-    console.log(`${
-      chalk.grey('============') + chalk.white('[ ') + chalk.cyan(name) + chalk.white(' ]') +
-      chalk.grey('=') + chalk.white('[ ') + Timer.passFail(passed) + chalk.white(' ]') +
-      chalk.grey('=') + chalk.white('[ ') + Timer.duration(startTime) + chalk.white(' ]') +
-      chalk.grey('============')
-    }`);
+    console.log("".concat(_chalk.default.grey('============') + _chalk.default.white('[ ') + _chalk.default.cyan(name) + _chalk.default.white(' ]') + _chalk.default.grey('=') + _chalk.default.white('[ ') + _Timer.default.passFail(passed) + _chalk.default.white(' ]') + _chalk.default.grey('=') + _chalk.default.white('[ ') + _Timer.default.duration(startTime) + _chalk.default.white(' ]') + _chalk.default.grey('============')));
   }
-}
 
-export default Logger;
+}
+/* eslint-enable no-console */
+
+
+var _default = Logger;
+exports.default = _default;

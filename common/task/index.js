@@ -29,7 +29,9 @@
 
 import { colorful } from 'colorful';
 import commander from 'commander';
-import { version } from '../../package.json';
+import { packaged } from './utils';
+
+const { version } = packaged;
 
 colorful();
 

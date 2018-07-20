@@ -7,7 +7,7 @@ exports.default = build;
 
 var _array = require("lodash/array");
 
-var _utils = require("../utils");
+var _utils = require("./utils");
 
 /**
  * This content is released under The MIT License

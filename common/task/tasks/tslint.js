@@ -39,7 +39,7 @@ import { execSync } from '../sync';
 
 module.exports = (options = {}) => {
   const mstslint = require.resolve('tslint-microsoft-contrib');
-  const cli = path.resolve(__dirname, '../../node_modules/tslint/lib/tslint-cli');
+  const cli = path.resolve(process.cwd(), 'node_modules/tslint/lib/tslint-cli');
   const command = `node ${cli}`;
 
   let rules = path.dirname(mstslint);

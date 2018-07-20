@@ -28,7 +28,7 @@
  */
 
 import { concat, compact } from 'lodash/array';
-import { Logger, isProduction, packaged } from '../utils';
+import { Logger, isProduction, packaged } from './utils';
 
 export default function build(additionalTasks = []) {
   const buildStartTime = new Date().getTime();

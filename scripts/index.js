@@ -4,7 +4,7 @@ var _colorful = require("colorful");
 
 var _commander = _interopRequireDefault(require("commander"));
 
-var _package = require("../../package.json");
+var _utils = require("./utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,9 +36,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @copyright     2018 Sopar Sihotang
  * @license       http://www.opensource.org/licenses/MIT
  */
+const version = _utils.packaged.version;
 (0, _colorful.colorful)();
 
-_commander.default.version(_package.version).command('run [name]', 'run specified task').parse(process.argv);
+_commander.default.version(version).command('run [name]', 'run specified task').parse(process.argv);
 
 const proc = _commander.default.runningCommand;
 

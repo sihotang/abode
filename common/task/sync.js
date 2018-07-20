@@ -33,7 +33,7 @@ import path from 'path';
 const SEPARATOR = process.platform === 'win32' ? ';' : ':';
 const envModules = { ...process.env };
 
-envModules.PATH = path.resolve('../../node_modules/.bin') + SEPARATOR + envModules.PATH;
+envModules.PATH = path.resolve(process.cwd(), 'node_modules/.bin') + SEPARATOR + envModules.PATH;
 
 const exec = function exec(command, name, cwd = process.cwd()) {
   return execSync(command, {
