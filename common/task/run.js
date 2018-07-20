@@ -1,6 +1,4 @@
-#!/usr/bin/env node
-
-/*
+/**
  * This content is released under The MIT License
  *
  * Copyright (c) 2018 Sopar Sihotang
@@ -29,4 +27,27 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-require('../scripts/');
+import { colorful } from 'colorful';
+import commander from 'commander';
+import gulp from 'gulp';
+import { Logger } from '../utils';
+
+colorful();
+
+commander.on('--help', () => {
+  Logger.stats('  Usage:'.to.bold.blue.color);
+});
+
+commander.parse(process.argv);
+
+const task = commander.args[0];
+
+if (!task) {
+  commander.help();
+} else {
+  Logger.stats('playst-tools run', task);
+
+  require('./gulpfile');
+
+  gulp.start(task);
+}

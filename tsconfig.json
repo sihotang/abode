@@ -10,6 +10,7 @@
     ]
   },
   "exclude": [
+    "./common",
     "./node_modules",
     "./plugins",
     "./resources",

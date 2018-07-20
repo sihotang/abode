@@ -28,7 +28,7 @@
  */
 
 import { concat, compact } from 'lodash/array';
-import { isProduction, packaged } from './utils';
+import { Logger, isProduction, packaged } from '../utils';
 
 export default function build(additionalTasks = []) {
   const buildStartTime = new Date().getTime();
@@ -38,7 +38,7 @@ export default function build(additionalTasks = []) {
 
   let tasks = [
     'tslint',
-    'tscompile'
+    'tscompile',
   ];
 
   let workspaces = [];

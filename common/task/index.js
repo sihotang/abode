@@ -29,25 +29,26 @@
 
 import { colorful } from 'colorful';
 import commander from 'commander';
-import gulp from 'gulp';
-import { Logger } from './utils';
+import { version } from '../../package.json';
 
 colorful();
 
-commander.on('--help', () => {
-  Logger.stats('  Usage:'.to.bold.blue.color);
-});
+commander
+  .version(version)
+  .command('run [name]', 'run specified task')
+  .parse(process.argv);
 
-commander.parse(process.argv);
+const proc = commander.runningCommand;
 
-const task = commander.args[0];
+if (proc) {
+  proc.on('close', process.exit.bind(process));
+  proc.on('error', () => {
+    process.exit(1);
+  });
+}
 
-if (!task) {
+const command = commander.args[0];
+
+if (!command || command !== 'run') {
   commander.help();
-} else {
-  Logger.stats('playst-tools run', task);
-
-  require('./gulpfile');
-
-  gulp.start(task);
 }

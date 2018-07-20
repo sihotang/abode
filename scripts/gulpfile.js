@@ -1,6 +1,14 @@
-#!/usr/bin/env node
+"use strict";
 
-/*
+var _gulp = _interopRequireDefault(require("gulp"));
+
+var _build = _interopRequireDefault(require("./build"));
+
+var _clean = _interopRequireDefault(require("./clean"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
  * This content is released under The MIT License
  *
  * Copyright (c) 2018 Sopar Sihotang
@@ -28,5 +36,10 @@
  * @copyright     2018 Sopar Sihotang
  * @license       http://www.opensource.org/licenses/MIT
  */
+_gulp.default.task('build', ['clean'], () => {
+  (0, _build.default)([]);
+});
 
-require('../scripts/');
+_gulp.default.task('clean', () => {
+  (0, _clean.default)();
+});

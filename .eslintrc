@@ -1,0 +1,34 @@
+{
+  "extends": ["airbnb-base"],
+  "root": true,
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "id-length": 0,
+    "global-require": 0,
+    "new-cap": [2, {
+      "capIsNewExceptions": ["AND"]
+    }],
+    "import/no-dynamic-require": 0,
+    "import/first": 0,
+    "no-underscore-dangle": [2, {
+      "allowAfterThis": true,
+      "allow": [
+        "_context",
+        "_currentElement",
+        "_instance",
+        "_reactInternalComponent",
+        "_reactInternalInstance",
+        "_renderedChildren",
+        "_renderedComponent",
+        "_renderedNodeType",
+        "_state",
+        "_store",
+        "_stringText"
+      ]
+    }],
+    "strict": ["error", "never"]
+  }
+}

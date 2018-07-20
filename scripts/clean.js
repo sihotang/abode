@@ -1,6 +1,17 @@
-#!/usr/bin/env node
+"use strict";
 
-/*
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = clean;
+
+var _path = _interopRequireDefault(require("path"));
+
+var _rimraf = require("rimraf");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
  * This content is released under The MIT License
  *
  * Copyright (c) 2018 Sopar Sihotang
@@ -28,5 +39,8 @@
  * @copyright     2018 Sopar Sihotang
  * @license       http://www.opensource.org/licenses/MIT
  */
-
-require('../scripts/');
+function clean() {
+  ['lib', 'temp', 'dist', 'lib-amd', 'lib-es2015', 'coverage'].forEach(folder => {
+    (0, _rimraf.sync)(_path.default.resolve(process.cwd(), folder));
+  });
+}

@@ -1,6 +1,16 @@
-#!/usr/bin/env node
+"use strict";
 
-/*
+var _colorful = require("colorful");
+
+var _commander = _interopRequireDefault(require("commander"));
+
+var _gulp = _interopRequireDefault(require("gulp"));
+
+var _utils = require("../utils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
  * This content is released under The MIT License
  *
  * Copyright (c) 2018 Sopar Sihotang
@@ -28,5 +38,22 @@
  * @copyright     2018 Sopar Sihotang
  * @license       http://www.opensource.org/licenses/MIT
  */
+(0, _colorful.colorful)();
 
-require('../scripts/');
+_commander.default.on('--help', () => {
+  _utils.Logger.stats('  Usage:'.to.bold.blue.color);
+});
+
+_commander.default.parse(process.argv);
+
+const task = _commander.default.args[0];
+
+if (!task) {
+  _commander.default.help();
+} else {
+  _utils.Logger.stats('playst-tools run', task);
+
+  require('./gulpfile');
+
+  _gulp.default.start(task);
+}

@@ -1,3 +1,13 @@
+"use strict";
+
+var _colorful = require("colorful");
+
+var _commander = _interopRequireDefault(require("commander"));
+
+var _package = require("../../package.json");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * This content is released under The MIT License
  *
@@ -26,4 +36,21 @@
  * @copyright     2018 Sopar Sihotang
  * @license       http://www.opensource.org/licenses/MIT
  */
+(0, _colorful.colorful)();
 
+_commander.default.version(_package.version).command('run [name]', 'run specified task').parse(process.argv);
+
+const proc = _commander.default.runningCommand;
+
+if (proc) {
+  proc.on('close', process.exit.bind(process));
+  proc.on('error', () => {
+    process.exit(1);
+  });
+}
+
+const command = _commander.default.args[0];
+
+if (!command || command !== 'run') {
+  _commander.default.help();
+}

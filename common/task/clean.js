@@ -1,6 +1,4 @@
-#!/usr/bin/env node
-
-/*
+/**
  * This content is released under The MIT License
  *
  * Copyright (c) 2018 Sopar Sihotang
@@ -29,4 +27,18 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-require('../scripts/');
+import path from 'path';
+import { sync as rimraf } from 'rimraf';
+
+export default function clean() {
+  [
+    'lib',
+    'temp',
+    'dist',
+    'lib-amd',
+    'lib-es2015',
+    'coverage',
+  ].forEach((folder) => {
+    rimraf(path.resolve(process.cwd(), folder));
+  });
+}

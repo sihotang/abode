@@ -1,6 +1,4 @@
-#!/usr/bin/env node
-
-/*
+/**
  * This content is released under The MIT License
  *
  * Copyright (c) 2018 Sopar Sihotang
@@ -29,4 +27,28 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-require('../scripts/');
+import { execSync, spawnSync } from 'child_process';
+import path from 'path';
+
+const SEPARATOR = process.platform === 'win32' ? ';' : ':';
+const envModules = { ...process.env };
+
+envModules.PATH = path.resolve('../../node_modules/.bin') + SEPARATOR + envModules.PATH;
+
+const exec = function exec(command, name, cwd = process.cwd()) {
+  return execSync(command, {
+    cwd,
+    env: envModules,
+    stdio: 'inherit',
+  });
+};
+
+const spawn = function spawn(command, args = [], cwd = process.cwd()) {
+  return spawnSync(command, args, {
+    cwd,
+    env: envModules,
+    stdio: 'inherit',
+  }).on('error', process.exit);
+};
+
+export { exec as execSync, spawn as spawnSync };

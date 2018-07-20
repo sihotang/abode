@@ -1,6 +1,4 @@
-#!/usr/bin/env node
-
-/*
+/**
  * This content is released under The MIT License
  *
  * Copyright (c) 2018 Sopar Sihotang
@@ -29,4 +27,10 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-require('../scripts/');
+import tscompile from './tscompile';
+import tslint from './tslint';
+
+export {
+  tscompile,
+  tslint,
+};
