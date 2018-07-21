@@ -29,6 +29,6 @@
  * @license       http://www.opensource.org/licenses/MIT
  */
 
-import { resolve } from 'path';
-
-require(resolve(process.cwd(), 'scripts'));
+// import { resolve } from 'path';
+require('../scripts');
+// require(resolve(process.cwd(), 'scripts'));

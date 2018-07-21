@@ -5,9 +5,9 @@
   "description": "The settler & configuration for development environments.",
   "main": "lib/bait.js",
   "bin": {
-    "bait": "bin/bait",
-    "task": "bin/task",
-    "task-run": "bin/task-run"
+    "bait": "./bin/bait",
+    "task": "./bin/task",
+    "task-run": "./bin/task-run"
   },
   "files": [
     "bin",
@@ -19,7 +19,7 @@
     "src/Bait/*"
   ],
   "scripts": {
-    "build": "./bin/task run build",
+    "build": "npm run task run build",
     "build:bin": "npm run lint:bin && babel common/bin -Dd bin",
     "build:scripts": "npm run lint:scripts && babel/task -Dd scripts",
     "clean": "./bin/task run clean",
